@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ScoreKeeper</string>
+
+    <string name="goal">Goal</string>
+    <string name="yellowcard">Yellowcard</string>
+    <string name="redcard">Redcard</string>
+    <string name="corner">Corner</string>
+
+    <string-array name="teams_array">
+        <item>FC Barcelona</item>
+        <item>Real Madrid CF</item>
+        <item>Manchester UTD FC</item>
+        <item>Juventus FC</item>
+        <item>Chelsea FC</item>
+    </string-array>
+</resources>

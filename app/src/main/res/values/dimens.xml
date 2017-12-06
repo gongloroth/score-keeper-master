@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="relative_top_padding">8dp</dimen>
+
+    <dimen name="text_bottom_margin">8dp</dimen>
+
+    <dimen name="button_bottom_margin">8dp</dimen>
+
+    <dimen name="small_icon_size">24dp</dimen>
+
+    <dimen name="small_icon_right_margin">4dp</dimen>
+
+    <dimen name="padding_linear_layout">8dp</dimen>
+
+    <dimen name="layout_bottom_margin">16dp</dimen>
+
+    <dimen name="button_margin_sides">8dp</dimen>
+
+    <dimen name="icon_size">80dp</dimen>
+
+</resources>
