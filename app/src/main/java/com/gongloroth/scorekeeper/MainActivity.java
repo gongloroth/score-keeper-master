@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     private int scoreTeamA = 0;
@@ -25,6 +28,18 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerA;
     private Spinner spinnerB;
 
+    private ArrayAdapter<CharSequence> adapter;
+
+    private ImageView imageViewA;
+    private ImageView imageViewB;
+
+    ArrayList<Integer> myImageList = new ArrayList<>(Arrays.asList(
+            R.drawable.barcelona_icon,
+            R.drawable.real_madrid_icon,
+            R.drawable.manchester_icon,
+            R.drawable.juventus_icon,
+            R.drawable.chelsea_icon
+    ));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        createSpinnerA();
-        createSpinnerB();
+        imageViewA = (ImageView) findViewById(R.id.team_a_image);
+        imageViewB = (ImageView) findViewById(R.id.team_b_image);
 
+        adapter = createAdapter();
+
+        spinnerA = createSpinner(imageViewA, R.id.team_a_spinner, adapter, 0);
+        spinnerB = createSpinner(imageViewB, R.id.team_b_spinner, adapter, 1);
 
     }
 
@@ -193,95 +212,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void createSpinnerA(){
-        spinnerA = (Spinner) findViewById(R.id.team_a_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapterA = ArrayAdapter.createFromResource(this,
-                R.array.teams_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapterA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinnerA.setAdapter(adapterA);
-        spinnerA.setOnItemSelectedListener(new TeamASpinner());
+    public Spinner createSpinner(ImageView imageView, int spinnerId ,ArrayAdapter<CharSequence> adapter, int select){
+        Spinner spinner = (Spinner) findViewById(spinnerId);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(select);
+        spinner.setOnItemSelectedListener(new TeamSpinner(imageView));
+        return spinner;
     }
 
-    public void createSpinnerB(){
-        spinnerB = (Spinner) findViewById(R.id.team_b_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapterB = ArrayAdapter.createFromResource(this,
+    public ArrayAdapter<CharSequence> createAdapter() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.teams_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapterB.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinnerB.setAdapter(adapterB);
-        spinnerB.setSelection(1);
-        spinnerB.setOnItemSelectedListener(new TeamBSpinner());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        return adapter;
     }
 
-    class TeamASpinner implements AdapterView.OnItemSelectedListener{
+
+    class TeamSpinner implements AdapterView.OnItemSelectedListener{
+
+        ImageView imageView;
+
+        public TeamSpinner(ImageView imageView){
+            this.imageView = imageView;
+        }
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-            ImageView imageA = (ImageView) findViewById(R.id.team_a_image);
-
-            switch (adapterView.getSelectedItemPosition()) {
-                case 0:
-                    imageA.setImageResource(R.drawable.barcelona_icon);
-                    break;
-
-                case 1:
-                    imageA.setImageResource(R.drawable.real_madrid_icon);
-                    break;
-
-                case 2:
-                    imageA.setImageResource(R.drawable.manchester_icon);
-                    break;
-
-                case 3:
-                    imageA.setImageResource(R.drawable.juventus_icon);
-                    break;
-
-                case 4:
-                    imageA.setImageResource(R.drawable.chelsea_icon);
-                    break;
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    }
-
-    class TeamBSpinner implements AdapterView.OnItemSelectedListener{
-
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            ImageView imageB = (ImageView) findViewById(R.id.team_b_image);
-
-            switch (adapterView.getSelectedItemPosition()) {
-                case 0:
-                    imageB.setImageResource(R.drawable.barcelona_icon);
-                    break;
-
-                case 1:
-                    imageB.setImageResource(R.drawable.real_madrid_icon);
-                    break;
-
-                case 2:
-                    imageB.setImageResource(R.drawable.manchester_icon);
-                    break;
-
-                case 3:
-                    imageB.setImageResource(R.drawable.juventus_icon);
-                    break;
-
-                case 4:
-                    imageB.setImageResource(R.drawable.chelsea_icon);
-                    break;
-            }
+            imageView.setImageResource(myImageList.get(adapterView.getSelectedItemPosition()));
         }
 
         @Override
