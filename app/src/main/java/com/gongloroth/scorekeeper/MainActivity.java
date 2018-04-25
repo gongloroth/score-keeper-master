@@ -33,13 +33,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageViewA;
     private ImageView imageViewB;
 
-    ArrayList<Integer> myImageList = new ArrayList<>(Arrays.asList(
-            R.drawable.barcelona_icon,
-            R.drawable.real_madrid_icon,
-            R.drawable.manchester_icon,
-            R.drawable.juventus_icon,
-            R.drawable.chelsea_icon
-    ));
+    private int picTeamA;
+    private int picTeamB;
+
+    ArrayList<Integer> myImageList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
 
         imageViewA = (ImageView) findViewById(R.id.team_a_image);
         imageViewB = (ImageView) findViewById(R.id.team_b_image);
+
+        myImageList = new ArrayList<>(Arrays.asList(
+                R.drawable.barcelona_icon,
+                R.drawable.real_madrid_icon,
+                R.drawable.manchester_icon,
+                R.drawable.juventus_icon,
+                R.drawable.chelsea_icon
+        ));
 
         adapter = createAdapter();
 
@@ -71,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         outState.putInt("redCardTeamA_KEY", redCardTeamA);
         outState.putInt("redCardTeamB_KEY", redCardTeamB);
 
+        outState.putInt("spinnerA_KEY", spinnerA.getSelectedItemPosition());
+        outState.putInt("spinnerB_KEY", spinnerB.getSelectedItemPosition());
+
 
         // call superclass to save any view hierarchy
         super.onSaveInstanceState(outState);
@@ -90,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
 
         redCardTeamA = savedInstanceState.getInt("redCardTeamA_KEY");
         redCardTeamB = savedInstanceState.getInt("redCardTeamB_KEY");
+
+        spinnerA.setSelection(savedInstanceState.getInt("spinnerA_KEY"));
+        spinnerB.setSelection(savedInstanceState.getInt("spinnerB_KEY"));
 
         displayAll();
 
@@ -240,12 +251,14 @@ public class MainActivity extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
             imageView.setImageResource(myImageList.get(adapterView.getSelectedItemPosition()));
+
         }
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
 
         }
+
     }
 
 }
