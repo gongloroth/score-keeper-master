@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageViewA;
     private ImageView imageViewB;
 
-    private int picTeamA;
-    private int picTeamB;
-
     ArrayList<Integer> myImageList;
 
     @Override
@@ -107,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Displays the given scoreTeamA for Team A.
+     * Display methods for Team A: score, corners, red and yellow cards
      */
     public void displayForTeamA(int score) {
         TextView scoreView = (TextView) findViewById(R.id.team_a_score);
@@ -128,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
         TextView redView = (TextView) findViewById(R.id.red_text_a);
         redView.setText(String.valueOf(score));
     }
+
+    //Addition methods to the certain values for Team A
 
     public void scorePlusA(View view){
         scoreTeamA +=1;
@@ -151,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * Displays the given scoreTeamA for Team A.
+     * Display methods for Team B: score, corners, red and yellow cards
      */
     public void displayForTeamB(int score) {
         TextView scoreView = (TextView) findViewById(R.id.team_b_score);
@@ -173,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
         redView.setText(String.valueOf(score));
     }
 
+    //Addition methods to the certain values for Team B
+
     public void scorePlusB(View view){
         scoreTeamB +=1;
         displayForTeamB(scoreTeamB);
@@ -193,6 +194,8 @@ public class MainActivity extends AppCompatActivity {
         displayRedB(redCardTeamB);
     }
 
+    //Display all method
+
     public void displayAll(){
         displayForTeamA(scoreTeamA);
         displayForTeamB(scoreTeamB);
@@ -206,6 +209,8 @@ public class MainActivity extends AppCompatActivity {
         displayRedB(redCardTeamB);
 
     }
+
+    //Reset method
 
     public void reset(View view){
         scoreTeamB = 0;
@@ -222,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
         displayAll();
     }
 
+    //Spinner creator method
 
     public Spinner createSpinner(ImageView imageView, int spinnerId ,ArrayAdapter<CharSequence> adapter, int select){
         Spinner spinner = (Spinner) findViewById(spinnerId);
@@ -231,6 +237,8 @@ public class MainActivity extends AppCompatActivity {
         return spinner;
     }
 
+    //ArrayAdapter creator method
+
     public ArrayAdapter<CharSequence> createAdapter() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.teams_array, android.R.layout.simple_spinner_item);
@@ -238,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
         return adapter;
     }
 
+    //TeamSpinner class implementation
 
     class TeamSpinner implements AdapterView.OnItemSelectedListener{
 
